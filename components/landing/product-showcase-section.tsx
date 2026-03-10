@@ -151,7 +151,7 @@ function ParallaxCapabilityCard({
 
   return (
     <motion.div variants={card} style={{ y: parallaxY, scale: parallaxScale }} className={className}>
-      <Card className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-[0_24px_90px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-black/35">
+      <Card className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] shadow-[0_24px_90px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05]">
         <CardHeader className="relative border-b border-white/10 pb-5">
           <div className="mb-3 flex items-center justify-between gap-3">
             <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
@@ -166,7 +166,7 @@ function ParallaxCapabilityCard({
             {feature.body}
           </CardDescription>
         </CardHeader>
-        <CardContent className="relative border-t border-white/10 bg-black/50 px-4 py-3">
+        <CardContent className="relative border-t border-white/10 bg-white/[0.03] px-4 py-3">
           <div className="flex items-start justify-between gap-4">
             <p className="text-sm leading-relaxed text-zinc-300">{feature.meta}</p>
             <ArrowUpRight className="mt-0.5 size-4 shrink-0 text-zinc-500 transition-colors duration-300 group-hover:text-sky-300" />
