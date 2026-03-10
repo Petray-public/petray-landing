@@ -10,7 +10,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { Activity, ShieldCheck, Truck, Headset, Building2, Sparkles } from "lucide-react";
+import { Activity, ShieldCheck, Truck, Headset, Building2, Sparkles, ArrowUpRight } from "lucide-react";
 
 const grid: Variants = {
   hidden: {},
@@ -116,7 +116,7 @@ export function ProductShowcaseSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.25 }}
-          className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-12"
         >
           {FEATURES.map((feature, index) => (
             <ParallaxCapabilityCard
@@ -124,6 +124,7 @@ export function ProductShowcaseSection() {
               feature={feature}
               index={index}
               scrollYProgress={scrollYProgress}
+              className={index === 0 || index === 5 ? "lg:col-span-6" : "lg:col-span-3"}
             />
           ))}
         </motion.div>
@@ -136,10 +137,12 @@ function ParallaxCapabilityCard({
   feature,
   index,
   scrollYProgress,
+  className,
 }: {
   feature: Feature;
   index: number;
   scrollYProgress: MotionValue<number>;
+  className?: string;
 }) {
   const Icon = feature.icon;
   // Stronger, more noticeable parallax range
@@ -147,26 +150,27 @@ function ParallaxCapabilityCard({
   const parallaxScale = useTransform(scrollYProgress, [0, 1], [1.01, 0.99]);
 
   return (
-    <motion.div variants={card} style={{ y: parallaxY, scale: parallaxScale }}>
-      <Card className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] shadow-[0_24px_90px_rgba(0,0,0,0.62)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1.5 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-[0_34px_130px_rgba(0,0,0,0.88)]">
-        <div className="pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-b from-white/16 via-transparent to-transparent opacity-40" />
-        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_8%,rgba(56,189,248,0.14),transparent_46%)]" />
+    <motion.div variants={card} style={{ y: parallaxY, scale: parallaxScale }} className={className}>
+      <Card className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-[0_24px_90px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-black/35">
         <CardHeader className="relative border-b border-white/10 pb-5">
-          <div className="mb-3 flex items-center gap-2">
-            <Icon className="size-4 text-sky-300/90" />
-            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-400">
-              {feature.title}
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+              0{index + 1}
             </span>
+            <Icon className="size-4 text-sky-300/90" />
           </div>
-          <div>
-            <CardDescription className="text-sm leading-relaxed text-zinc-300">
-              {feature.body}
-            </CardDescription>
-          </div>
+          <h3 className="text-balance text-base font-semibold tracking-tight text-white md:text-lg">
+            {feature.title}
+          </h3>
+          <CardDescription className="mt-2 text-sm leading-relaxed text-zinc-300">
+            {feature.body}
+          </CardDescription>
         </CardHeader>
-        <CardContent className="relative border-t border-white/5 bg-black/25 px-4 py-3">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-400">Positioning</p>
-          <p className="mt-1.5 text-sm leading-relaxed text-zinc-300">{feature.meta}</p>
+        <CardContent className="relative border-t border-white/10 bg-black/50 px-4 py-3">
+          <div className="flex items-start justify-between gap-4">
+            <p className="text-sm leading-relaxed text-zinc-300">{feature.meta}</p>
+            <ArrowUpRight className="mt-0.5 size-4 shrink-0 text-zinc-500 transition-colors duration-300 group-hover:text-sky-300" />
+          </div>
         </CardContent>
       </Card>
     </motion.div>
