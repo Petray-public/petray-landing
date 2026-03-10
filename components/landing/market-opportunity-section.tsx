@@ -1,0 +1,125 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import { SectionShell } from "@/components/section-shell";
+import { SectionHeader } from "@/components/section-header";
+
+type Stat = {
+  label: string;
+  value: number;
+  suffix?: string;
+  description: string;
+};
+
+const STATS: Stat[] = [
+  {
+    label: "Cities with warehousing & service",
+    value: 12,
+    suffix: "+",
+    description: "Pan-India infrastructure that brings you closer to customers across key metros and growth markets.",
+  },
+  {
+    label: "Support coverage",
+    value: 24,
+    suffix: "x7",
+    description:
+      "Round-the-clock service and technician network so your promise to customers is backed by real support.",
+  },
+  {
+    label: "Faster deliveries",
+    value: 30,
+    suffix: "%",
+    description: "Optimised inventory and routing that cut delivery times compared to typical cross-border setups.",
+  },
+];
+
+function AnimatedNumber({ value, suffix }: { value: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const motionValue = useMotionValue(0);
+  const spring = useSpring(motionValue, {
+    stiffness: 110,
+    damping: 20,
+  });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    const unsubscribe = spring.on("change", (latest) => {
+      setDisplay(Math.round(latest));
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [spring]);
+
+  const inView = useInView(ref, { once: true, margin: "-120px" });
+
+  useEffect(() => {
+    if (inView) {
+      motionValue.set(value);
+    }
+  }, [inView, motionValue, value]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {display}
+      {suffix}
+    </span>
+  );
+}
+
+export function MarketOpportunitySection() {
+  return (
+    <SectionShell
+      id="market"
+      className="bg-black pb-20 pt-16 text-white md:pb-28 md:pt-24"
+    >
+      <div className="grid gap-12 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-start">
+        <div className="space-y-6">
+          <SectionHeader
+            eyebrow="Why now"
+            title="India is a growth engine you can&apos;t afford to treat as an experiment."
+            description="Global brands see India as a strategic market, but fragmented partners and one-off launches create inconsistent customer experiences. Petray gives you a single, accountable operating arm on the ground."
+            tone="onDark"
+          />
+          <p className="max-w-xl text-sm text-zinc-300 sm:text-base">
+            With a unified view across compliance, warehousing, distribution, and after-sales, you
+            can make confident long-term bets instead of cycling through disconnected pilots and
+            stop-gap partners.
+          </p>
+        </div>
+
+        <div className="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur sm:gap-5 sm:p-6">
+          {STATS.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{
+                duration: 0.45,
+                delay: index * 0.08,
+                ease: [0.22, 0.61, 0.36, 1],
+              }}
+              className="flex flex-col gap-1 rounded-xl border border-white/10 bg-black/40 px-4 py-3"
+            >
+              <p className="text-xs font-medium uppercase tracking-[0.16em] text-zinc-400">
+                {stat.label}
+              </p>
+              <p className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                <AnimatedNumber value={stat.value} suffix={stat.suffix} />
+              </p>
+              <p className="text-xs text-zinc-300 sm:text-sm">{stat.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
