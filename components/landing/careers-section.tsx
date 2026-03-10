@@ -60,8 +60,6 @@ export function CareersSection() {
       id="careers"
       className="relative overflow-hidden bg-black pb-20 pt-16 text-white md:pb-28 md:pt-20"
     >
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white/5" />
-
       <div
         ref={sectionRef}
         className="relative z-10 grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.1fr)] md:items-center"
