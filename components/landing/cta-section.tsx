@@ -18,6 +18,9 @@ export function CallToActionSection() {
   });
 
   const contentY = useTransform(scrollYProgress, [0, 1], [18, -12]);
+  const headingY = useTransform(scrollYProgress, [0, 1], [8, -14]);
+  const actionsY = useTransform(scrollYProgress, [0, 1], [18, -6]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [36, -36]);
 
   return (
     <SectionShell
@@ -25,6 +28,10 @@ export function CallToActionSection() {
       className="relative overflow-hidden bg-black pb-24 pt-16 text-white md:pb-28 md:pt-20"
     >
       <div ref={sectionRef}>
+        <motion.div
+          style={{ y: glowY }}
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_24%,rgba(56,189,248,0.14),transparent_35%),radial-gradient(circle_at_82%_78%,rgba(14,165,233,0.12),transparent_38%)]"
+        />
         <motion.div
           variants={wrap}
           initial="hidden"
@@ -35,6 +42,7 @@ export function CallToActionSection() {
         >
           <motion.div
             initial={false}
+            style={{ y: headingY }}
             className="max-w-3xl"
           >
             <p className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-200">
@@ -52,6 +60,7 @@ export function CallToActionSection() {
 
           <motion.div
             initial={false}
+            style={{ y: actionsY }}
             className="flex flex-wrap items-center justify-center gap-4"
           >
             <Button
@@ -73,4 +82,3 @@ export function CallToActionSection() {
     </SectionShell>
   );
 }
-
