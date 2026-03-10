@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, type Variants, useScroll, useTransform } from "framer-motion";
-import { Briefcase, MapPin, Clock3 } from "lucide-react";
+import { Briefcase, MapPin, Clock3, ArrowUpRight } from "lucide-react";
 import { SectionShell } from "@/components/section-shell";
 import { SectionHeader } from "@/components/section-header";
 import { Button } from "@/components/ui/button";
@@ -60,9 +61,19 @@ export function CareersSection() {
       id="careers"
       className="relative overflow-hidden bg-black pb-20 pt-16 text-white md:pb-28 md:pt-20"
     >
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <Image
+          src="/images/band-soft.jpg"
+          alt="Careers soft backdrop"
+          fill
+          className="object-cover opacity-18"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/85" />
+      </div>
+
       <div
         ref={sectionRef}
-        className="relative z-10 grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.1fr)] md:items-center"
+        className="relative z-10 grid gap-10 rounded-3xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_28px_100px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.1fr)] md:items-center md:p-8"
       >
         <motion.div style={{ y: leftY }} className="space-y-6">
           <SectionHeader
@@ -77,6 +88,17 @@ export function CareersSection() {
             intersection of logistics, customer experience, and technology, Petray could be a strong
             fit.
           </p>
+          <div className="flex flex-wrap gap-2">
+            <span className="rounded-full border border-white/10 bg-black/40 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-300">
+              Operations
+            </span>
+            <span className="rounded-full border border-white/10 bg-black/40 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-300">
+              Partnerships
+            </span>
+            <span className="rounded-full border border-white/10 bg-black/40 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-zinc-300">
+              Service
+            </span>
+          </div>
           <Button
             size="lg"
             className="mt-2 rounded-full bg-white px-7 py-2.5 text-sm text-black shadow-[0_18px_70px_rgba(255,255,255,0.10)] hover:bg-white/90 md:text-base"
@@ -99,13 +121,14 @@ export function CareersSection() {
               <motion.div
                 key={item.label}
                 variants={card}
-                className="group flex h-full flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-zinc-200 shadow-[0_18px_70px_rgba(0,0,0,0.55)] backdrop-blur transition-transform duration-300 hover:-translate-y-1 hover:bg-white/10 sm:p-5"
+                className="group flex h-full flex-col gap-3 rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-zinc-200 shadow-[0_18px_70px_rgba(0,0,0,0.55)] backdrop-blur transition-transform duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/8 sm:p-5"
               >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-sky-500/15 text-sky-200 ring-1 ring-sky-400/30">
-                    <Icon className="h-4 w-4" />
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <Icon className="h-4 w-4 text-sky-300/90" />
+                    <p className="text-sm font-semibold tracking-tight text-white">{item.label}</p>
                   </div>
-                  <p className="text-sm font-semibold tracking-tight text-white">{item.label}</p>
+                  <ArrowUpRight className="h-4 w-4 text-zinc-500 transition-colors duration-300 group-hover:text-sky-300" />
                 </div>
                 <p className="text-xs leading-relaxed text-zinc-300 sm:text-sm">{item.body}</p>
               </motion.div>
