@@ -12,7 +12,6 @@ export function LenisProvider({ children }: LenisProviderProps) {
     const lenis = new Lenis({
       lerp: 0.1,
       smoothWheel: true,
-      smoothTouch: false,
     });
 
     const raf = (time: number) => {
