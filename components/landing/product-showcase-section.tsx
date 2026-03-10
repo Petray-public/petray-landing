@@ -7,7 +7,6 @@ import { SectionHeader } from "@/components/section-header";
 import {
   Card,
   CardHeader,
-  CardTitle,
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
@@ -36,6 +35,7 @@ type Feature = {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   body: string;
+  meta: string;
 };
 
 const FEATURES: Feature[] = [
@@ -43,31 +43,37 @@ const FEATURES: Feature[] = [
     icon: Activity,
     title: "End-to-end execution",
     body: "From import and compliance to warehousing, last-mile, and after-sales, Petray runs the full India GTM for your brand.",
+    meta: "Single accountable partner from launch to scale.",
   },
   {
     icon: ShieldCheck,
     title: "Compliance & BIS",
     body: "Navigate BIS, regulatory approvals, and ongoing compliance with an experienced local operating team.",
+    meta: "Local experts who live inside the regulations.",
   },
   {
     icon: Truck,
     title: "Omni-channel distribution",
     body: "Pan-India warehousing and distribution across marketplaces, retail, and D2C—built for faster deliveries.",
+    meta: "One inventory spine powering every channel.",
   },
   {
     icon: Headset,
     title: "After-sales network",
     body: "National service and support network that keeps customers happy long after the first purchase.",
+    meta: "Service quality that protects your brand promise.",
   },
   {
     icon: Building2,
     title: "Pan-India infrastructure",
     body: "12+ cities, scalable nodes, and technicians on the ground where your customers are.",
+    meta: "Coverage tuned to where demand actually lives.",
   },
   {
     icon: Sparkles,
     title: "AI-powered growth engine",
     body: "Tie CAC, conversion, and retention back to real operational data to keep your growth engine compounding.",
+    meta: "Signals from supply, support, and spend in one loop.",
   },
 ];
 
@@ -77,11 +83,18 @@ export function ProductShowcaseSection() {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
+  const bgY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const headerY = useTransform(scrollYProgress, [0, 1], [16, -16]);
 
   return (
     <SectionShell id="product" className="bg-black pb-20 pt-16 text-white md:pb-28 md:pt-20">
-      <div ref={sectionRef} className="flex flex-col gap-12">
+      <div ref={sectionRef} className="relative flex flex-col gap-12 overflow-hidden">
         <motion.div
+          style={{ y: bgY }}
+          className="pointer-events-none absolute inset-0 -z-10 opacity-45 [background-image:radial-gradient(circle_at_12%_18%,rgba(56,189,248,0.14),transparent_34%),radial-gradient(circle_at_84%_72%,rgba(59,130,246,0.16),transparent_38%)]"
+        />
+        <motion.div
+          style={{ y: headerY }}
           variants={header}
           initial="hidden"
           whileInView="show"
@@ -131,38 +144,31 @@ function ParallaxCapabilityCard({
   const Icon = feature.icon;
   // Stronger, more noticeable parallax range
   const parallaxY = useTransform(scrollYProgress, [0, 1], [index * 22, -index * 22]);
+  const parallaxScale = useTransform(scrollYProgress, [0, 1], [1.01, 0.99]);
 
   return (
-    <motion.div variants={card} style={{ y: parallaxY }}>
-      <Card className="group relative h-full overflow-hidden border-white/10 bg-gradient-to-b from-white/10 to-white/5 shadow-[0_18px_70px_rgba(0,0,0,0.55)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_28px_120px_rgba(0,0,0,0.72)]">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/35 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.10),transparent_55%)]" />
-        <CardHeader className="flex flex-row items-start gap-4 border-b border-white/10 pb-5">
-          <motion.div
-            initial={false}
-            whileHover={{ y: -1 }}
-            transition={{ duration: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
-            className="flex size-10 items-center justify-center rounded-2xl bg-sky-500/15 text-sky-200 ring-1 ring-sky-400/30"
-          >
-            <Icon className="size-4" />
-          </motion.div>
-          <div>
-            <CardTitle className="text-base font-semibold tracking-tight text-white">
+    <motion.div variants={card} style={{ y: parallaxY, scale: parallaxScale }}>
+      <Card className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] shadow-[0_24px_90px_rgba(0,0,0,0.62)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1.5 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-[0_34px_130px_rgba(0,0,0,0.88)]">
+        <div className="pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-b from-white/16 via-transparent to-transparent opacity-40" />
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_8%,rgba(56,189,248,0.14),transparent_46%)]" />
+        <CardHeader className="relative border-b border-white/10 pb-5">
+          <div className="mb-3 flex items-center gap-2">
+            <Icon className="size-4 text-sky-300/90" />
+            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-400">
               {feature.title}
-            </CardTitle>
-            <CardDescription className="mt-1 text-sm leading-relaxed text-zinc-300">
+            </span>
+          </div>
+          <div>
+            <CardDescription className="text-sm leading-relaxed text-zinc-300">
               {feature.body}
             </CardDescription>
           </div>
         </CardHeader>
-        <CardContent className="pt-5 text-sm leading-relaxed text-zinc-300">
-          <p>
-            Structured to mirror how global brands actually scale in India—from the first shipment
-            to a trusted, long-term presence in the market.
-          </p>
+        <CardContent className="relative border-t border-white/5 bg-black/25 px-4 py-3">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-400">Positioning</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-zinc-300">{feature.meta}</p>
         </CardContent>
       </Card>
     </motion.div>
   );
 }
-
