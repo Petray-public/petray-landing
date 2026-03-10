@@ -17,7 +17,6 @@ import {
   Building2,
   Sparkles,
 } from "lucide-react";
-// @ts-expect-error – untyped JS export
 import india from "@svg-maps/india";
 
 type IndiaLocation = {
