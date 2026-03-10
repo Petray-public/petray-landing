@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, type Variants, useScroll, useTransform } from "framer-motion";
 import { SectionShell } from "@/components/section-shell";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,15 @@ export function CallToActionSection() {
       className="relative overflow-hidden bg-black pb-24 pt-16 text-white md:pb-28 md:pt-20"
     >
       <div ref={sectionRef}>
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <Image
+            src="/images/band-soft.jpg"
+            alt="Soft CTA background"
+            fill
+            className="object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/75 to-black/80" />
+        </div>
         <motion.div
           style={{ y: glowY }}
           className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_24%,rgba(56,189,248,0.14),transparent_35%),radial-gradient(circle_at_82%_78%,rgba(14,165,233,0.12),transparent_38%)]"
@@ -38,7 +48,7 @@ export function CallToActionSection() {
           whileInView="show"
           viewport={{ once: true, amount: 0.5 }}
           style={{ y: contentY }}
-          className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-8 text-center"
+          className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-8 rounded-3xl border border-white/10 bg-white/[0.04] px-5 py-10 text-center shadow-[0_28px_110px_rgba(0,0,0,0.62)] backdrop-blur-xl sm:px-8 md:py-12"
         >
           <motion.div
             initial={false}
@@ -77,6 +87,12 @@ export function CallToActionSection() {
               Download capabilities profile
             </Button>
           </motion.div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] uppercase tracking-[0.16em] text-zinc-400">
+            <span className="rounded-full border border-white/10 bg-black/35 px-3 py-1">BIS + Compliance</span>
+            <span className="rounded-full border border-white/10 bg-black/35 px-3 py-1">Warehousing + Distribution</span>
+            <span className="rounded-full border border-white/10 bg-black/35 px-3 py-1">After-sales + Growth</span>
+          </div>
         </motion.div>
       </div>
     </SectionShell>
