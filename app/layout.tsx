@@ -17,6 +17,14 @@ export const metadata: Metadata = {
   title: "petray – Hybrid intelligence for product teams",
   description:
     "Build, ship, and learn faster with petray: AI-native workflows for modern product and engineering teams.",
+  icons: {
+    icon: [
+      { url: "/logo/image.png", type: "image/png", sizes: "192x192" },
+      { url: "/logo/image.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/logo/image.png",
+    apple: "/logo/image.png",
+  },
 };
 
 export default function RootLayout({
