@@ -83,9 +83,10 @@ export function MarketOpportunitySection() {
     offset: ["start end", "end start"],
   });
 
-  // Stronger parallax / depth for the stats panel as you scroll past
-  const panelY = useTransform(scrollYProgress, [0, 1], [48, -48]);
-  const panelTilt = useTransform(scrollYProgress, [0, 1], [10, 0]);
+  // Keep heading stable; only subtle depth on supporting layers.
+  const panelY = useTransform(scrollYProgress, [0, 1], [24, -24]);
+  const panelTilt = useTransform(scrollYProgress, [0, 1], [6, 0]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [22, -22]);
 
   return (
     <SectionShell
@@ -94,8 +95,12 @@ export function MarketOpportunitySection() {
     >
       <div
         ref={sectionRef}
-        className="grid gap-12 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-start"
+        className="relative grid gap-12 overflow-hidden md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-start"
       >
+        <motion.div
+          style={{ y: glowY }}
+          className="pointer-events-none absolute inset-0 -z-10 opacity-45 [background-image:radial-gradient(circle_at_16%_30%,rgba(56,189,248,0.12),transparent_34%),radial-gradient(circle_at_86%_68%,rgba(14,165,233,0.12),transparent_35%)]"
+        />
         <div className="space-y-6">
           <SectionHeader
             eyebrow="Why now"
