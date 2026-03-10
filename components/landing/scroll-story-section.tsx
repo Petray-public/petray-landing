@@ -8,7 +8,7 @@ import { SectionShell } from "@/components/section-shell";
 const STORY_STEPS = [
   {
     title: "Reduced customer acquisition cost.",
-    body: "Use Petray&apos;s data layer across marketplaces, D2C, and performance channels to direct budget into the signals that matter most.",
+    body: "Use Petray's data layer across marketplaces, D2C, and performance channels to direct budget into the signals that matter most.",
   },
   {
     title: "Hyper-targeted India playbooks.",
