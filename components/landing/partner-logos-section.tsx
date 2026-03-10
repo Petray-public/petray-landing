@@ -30,6 +30,8 @@ export function PartnerLogosSection() {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
+  const headerY = useTransform(scrollYProgress, [0, 1], [14, -14]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [26, -22]);
 
   return (
     <SectionShell
@@ -62,16 +64,19 @@ export function PartnerLogosSection() {
           </motion.div>
         </div>
 
-        <SectionHeader
-          eyebrow="Teams building with Petray"
-          title="Trusted by teams launching and scaling in India."
-          description="Petray pairs deep on-ground infrastructure with an AI growth engine—so global brands can move faster with fewer partners to manage."
-          align="center"
-          tone="onDark"
-          className="mx-auto max-w-4xl"
-        />
+        <motion.div style={{ y: headerY }}>
+          <SectionHeader
+            eyebrow="Teams building with Petray"
+            title="Trusted by teams launching and scaling in India."
+            description="Petray pairs deep on-ground infrastructure with an AI growth engine—so global brands can move faster with fewer partners to manage."
+            align="center"
+            tone="onDark"
+            className="mx-auto max-w-4xl"
+          />
+        </motion.div>
 
         <motion.div
+          style={{ y: gridY }}
           variants={wrap}
           initial="hidden"
           whileInView="show"
@@ -103,10 +108,11 @@ function ParallaxLogoTile({
 }) {
   // Stronger parallax so tiles feel more layered as you scroll
   const parallaxY = useTransform(scrollYProgress, [0, 1], [index * 10, -index * 10]);
+  const parallaxRotate = useTransform(scrollYProgress, [0, 1], [-0.8 + index * 0.2, 0.8 - index * 0.2]);
 
   return (
     <motion.div
-      style={{ y: parallaxY }}
+      style={{ y: parallaxY, rotate: parallaxRotate }}
       className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-[0_18px_70px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white/10"
       aria-label={logo.name}
     >
