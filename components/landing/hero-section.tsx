@@ -84,6 +84,13 @@ export function HeroSection() {
           style={{ scale: bgScale, x: bgX, y: bgY }}
           className="absolute inset-0 [mask-image:radial-gradient(circle_at_center,rgba(0,0,0,1)_0%,rgba(0,0,0,1)_40%,rgba(0,0,0,0)_75%)] [-webkit-mask-image:radial-gradient(circle_at_center,rgba(0,0,0,1)_0%,rgba(0,0,0,1)_40%,rgba(0,0,0,0)_75%)]"
         >
+          <Image
+            src="/images/hero-core.jpg"
+            alt="Petray India operations backdrop"
+            fill
+            priority
+            className="object-cover object-center opacity-80"
+          />
           <motion.div
             // Slow cinematic drift, independent of scroll.
             animate={{ x: [0, 16, -10, 0], y: [0, -10, 6, 0] }}
@@ -103,7 +110,7 @@ export function HeroSection() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/80 to-black" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.22),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(14,165,233,0.16),_transparent_60%)]" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black via-black to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black via-black/90 to-transparent" />
       </div>
 
       <motion.div
