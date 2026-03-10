@@ -2,11 +2,12 @@
 
 import React, { useRef, useState } from "react";
 import {
+  AnimatePresence,
+  MotionValue,
   motion,
   useMotionValueEvent,
   useScroll,
   useTransform,
-  MotionValue,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -17,7 +18,6 @@ import {
   Building2,
   Sparkles,
 } from "lucide-react";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error – untyped JS export
 import india from "@svg-maps/india";
 
@@ -107,56 +107,26 @@ export function IndiaGrowthSection() {
 
   const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], scaleRange);
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
     <section
       ref={containerRef}
-      className="relative h-[320vh] bg-black text-foreground"
+      className="relative h-[270vh] bg-black text-foreground"
       aria-label="Petray India coverage story"
     >
-      <div className="sticky top-0 flex h-screen items-center justify-center px-3 py-10 md:px-16 md:py-20">
+      <div className="sticky top-0 flex h-screen items-center justify-center px-3 py-4 md:px-8 md:py-8 lg:px-12">
         <div
-          className="relative w-full"
+          className="relative w-full max-w-[96rem]"
           style={{
             perspective: "1000px",
           }}
         >
-          <Header translate={translate}>
-            <h2 className="text-balance text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl md:text-5xl">
-              India coverage that straightens into focus as you scroll.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm text-slate-300 sm:mx-auto sm:text-base">
-              Watch the India map tilt into view and settle as Petray&apos;s role across the country
-              unfolds—showing how global brands plug into a single, accountable operating arm.
-            </p>
-          </Header>
           <Card rotate={rotate} scale={scale}>
             <MapWithStory activeIndex={activeIndex} />
           </Card>
         </div>
       </div>
     </section>
-  );
-}
-
-function Header({
-  translate,
-  children,
-}: {
-  translate: MotionValue<number>;
-  children: React.ReactNode;
-}) {
-  return (
-    <motion.div
-      style={{ translateY: translate }}
-      className="mx-auto mb-10 max-w-5xl text-center"
-    >
-      <p className="mb-3 inline-flex items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.2em] text-sky-200">
-        Pan‑India reach
-      </p>
-      {children}
-    </motion.div>
   );
 }
 
@@ -177,9 +147,9 @@ function Card({
         boxShadow:
           "0 0 #00000070, 0 12px 28px #00000066, 0 48px 54px #00000055, 0 110px 70px #0000003a, 0 180px 90px #0000001a, 0 260px 110px #00000008",
       }}
-      className="mx-auto -mt-16 h-[34rem] w-full max-w-6xl rounded-[32px] bg-black p-0 shadow-none md:h-[46rem]"
+      className="mx-auto h-[38rem] w-full rounded-[28px] bg-black p-0 shadow-none sm:h-[42rem] md:h-[46rem] xl:h-[50rem]"
     >
-      <div className="flex h-full w-full flex-col gap-4 rounded-[26px] bg-black md:flex-row md:p-4">
+      <div className="flex h-full w-full flex-col gap-4 overflow-hidden rounded-[24px] bg-black/75 p-3 sm:p-4 md:flex-row md:gap-8 md:p-6 lg:p-8">
         {children}
       </div>
     </motion.div>
@@ -187,11 +157,13 @@ function Card({
 }
 
 function MapWithStory({ activeIndex }: { activeIndex: number }) {
+  const activeStep = FEATURE_STEPS[activeIndex];
+  const StepIcon = activeStep.icon;
+
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center md:flex-row">
-      {/* Centered, larger map */}
-      <div className="relative flex flex-1 items-center justify-center">
-        <div className="relative h-[460px] w-[360px] md:h-[620px] md:w-[500px] lg:h-[700px] lg:w-[560px]">
+    <div className="flex h-full w-full min-w-0 flex-col gap-4 md:flex-row md:items-center">
+      <div className="relative flex min-w-0 flex-1 items-center justify-center">
+        <div className="relative h-[clamp(320px,66vh,760px)] w-[clamp(260px,34vw,560px)]">
           <div className="pointer-events-none absolute inset-x-10 top-2 h-14 rounded-full bg-gradient-to-b from-white/12 to-transparent blur-xl" />
           <svg
             viewBox={INDIA_MAP.viewBox}
@@ -233,58 +205,49 @@ function MapWithStory({ activeIndex }: { activeIndex: number }) {
               );
             })}
           </svg>
-
-          {/* Overlay comment bubble near the map (desktop) */}
-          <div className="pointer-events-none absolute inset-0 hidden md:block">
-            {FEATURE_STEPS.map((step, index) => {
-              const StepIcon = step.icon;
-              const isActive = index === activeIndex;
-
-              // Positions around the map, slightly outside its bounds,
-              // so comments feel like they originate from each region without covering it.
-              const positions = [
-                "top-8 left-full ml-6",
-                "top-8 right-full mr-6",
-                "top-1/2 left-full ml-6 -translate-y-1/2",
-                "top-1/2 right-full mr-6 -translate-y-1/2",
-                "bottom-10 left-full ml-6",
-                "bottom-10 right-full mr-6",
-              ];
-
-              return (
-                <motion.div
-                  key={step.title}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{
-                    opacity: isActive ? 1 : 0,
-                    y: isActive ? 0 : 8,
-                  }}
-                  transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
-                  className={cn(
-                    "absolute w-[26rem] max-w-[90vw] rounded-2xl border border-white/20 bg-slate-900 p-5 text-left text-sm text-slate-100 shadow-[0_24px_90px_rgba(15,23,42,0.8)]",
-                    positions[index],
-                    !isActive && "pointer-events-none opacity-0",
-                  )}
-                >
-                  <div className="mb-1 flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500/15 text-sky-300 ring-1 ring-sky-400/40">
-                      <StepIcon className="h-4 w-4" />
-                    </div>
-                  </div>
-                  <p className="text-sm font-semibold text-slate-50">
-                    {step.title}
-                  </p>
-                  <p className="mt-1 text-xs text-slate-200">
-                    {step.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
         </div>
       </div>
 
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 md:max-w-2xl md:gap-6">
+        <div>
+          <p className="mb-3 inline-flex items-center rounded-full bg-sky-500/12 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-sky-200">
+            Pan-India reach
+          </p>
+          <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl lg:text-[2.65rem]">
+            India coverage that straightens into focus as you scroll.
+          </h2>
+          <p className="mt-3 max-w-xl text-sm text-slate-300 sm:text-base">
+            Watch the India map settle while Petray&apos;s role across the country unfolds. Each step
+            highlights one part of the operating stack that helps global brands scale in India.
+          </p>
+        </div>
+
+        <div className="relative min-h-[160px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeStep.title}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
+              className="rounded-2xl bg-slate-900/55 p-4 text-left text-sm text-slate-100 shadow-[0_20px_60px_rgba(15,23,42,0.45)] backdrop-blur md:p-5"
+            >
+              <div className="mb-2 flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500/15 text-sky-300">
+                  <StepIcon className="h-4 w-4" />
+                </div>
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-300">
+                  Step {activeIndex + 1} / {FEATURE_STEPS.length}
+                </p>
+              </div>
+              <p className="text-sm font-semibold text-slate-50">{activeStep.title}</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-slate-200 sm:text-sm">
+                {activeStep.description}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 }
-
