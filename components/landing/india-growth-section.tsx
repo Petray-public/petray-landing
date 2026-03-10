@@ -117,6 +117,7 @@ export function IndiaGrowthSection() {
       className="relative h-[270vh] bg-black text-foreground"
       aria-label="Petray India coverage story"
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-44 bg-gradient-to-b from-black via-black/90 to-transparent" />
       <div className="sticky top-0 flex h-screen items-center justify-center px-3 py-4 md:px-8 md:py-8 lg:px-12">
         <div
           className="relative w-full max-w-[96rem]"
