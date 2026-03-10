@@ -46,9 +46,9 @@ export function ScrollStorySection() {
   const step2Bar = useTransform(scrollYProgress, [0.38, 0.52], [0, 1]);
   const step3Bar = useTransform(scrollYProgress, [0.56, 0.72], [0, 1]);
 
-  const sunY = useTransform(scrollYProgress, [0, 1], [220, -260]);
+  const sunY = useTransform(scrollYProgress, [0, 1], [260, -280]);
   const sunScale = useTransform(scrollYProgress, [0, 1], [0.85, 1.08]);
-  const sunOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8], [0.5, 0.78, 0.62]);
+  const sunOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8], [0.28, 0.46, 0.34]);
 
   return (
     <section
@@ -72,15 +72,15 @@ export function ScrollStorySection() {
           </motion.div>
           <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black via-black/90 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-black via-slate-950 to-black" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_70%,rgba(14,165,233,0.13),transparent_36%),radial-gradient(circle_at_80%_82%,rgba(56,189,248,0.12),transparent_40%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_78%,rgba(14,165,233,0.09),transparent_36%),radial-gradient(circle_at_80%_88%,rgba(56,189,248,0.08),transparent_40%)]" />
           <motion.div
             style={{ y: sunY, scale: sunScale, opacity: sunOpacity }}
-            className="absolute -bottom-[54%] left-1/2 h-[150vh] w-[150vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.8),_rgba(0,0,0,0)_70%)] blur-3xl"
+            className="absolute -bottom-[62%] left-1/2 h-[150vh] w-[150vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.6),_rgba(0,0,0,0)_70%)] blur-2xl"
           />
         </motion.div>
 
         <SectionShell className="relative flex h-full flex-col justify-center text-white">
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black via-black/95 to-transparent" />
 
           <div className="relative z-10 flex flex-col gap-12">
             <motion.div
