@@ -89,7 +89,7 @@ export function HeroSection() {
             alt="Petray India operations backdrop"
             fill
             priority
-            className="object-cover object-center opacity-80"
+            className="object-cover object-center opacity-50"
           />
           <motion.div
             // Slow cinematic drift, independent of scroll.
