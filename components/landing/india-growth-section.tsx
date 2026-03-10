@@ -9,7 +9,6 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { cn } from "@/lib/utils";
 import {
   Activity,
   ShieldCheck,
@@ -95,15 +94,19 @@ export function IndiaGrowthSection() {
   }, []);
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    // Use explicit scroll segments for smooth, predictable steps
-    const clamped = Math.min(Math.max(v, 0), 0.999);
-    const index =
-      SEGMENTS.findIndex((start, i) => i < SEGMENTS.length - 1 && clamped >= start && clamped < SEGMENTS[i + 1]) ??
-      0;
+    // Resolve to a valid step all the way to the end of scroll.
+    const clamped = Math.min(Math.max(v, 0), 1);
+    let index = FEATURE_STEPS.length - 1;
+    for (let i = 0; i < SEGMENTS.length - 1; i += 1) {
+      if (clamped >= SEGMENTS[i] && clamped < SEGMENTS[i + 1]) {
+        index = i;
+        break;
+      }
+    }
     setActiveIndex(Math.max(0, Math.min(FEATURE_STEPS.length - 1, index)));
   });
 
-  const scaleRange = isMobile ? [0.85, 0.95] : [1.05, 1];
+  const scaleRange = isMobile ? [0.88, 0.96] : [1.02, 1];
 
   const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], scaleRange);
@@ -164,7 +167,8 @@ function MapWithStory({ activeIndex }: { activeIndex: number }) {
     <div className="flex h-full w-full min-w-0 flex-col gap-4 md:flex-row md:items-center">
       <div className="relative flex min-w-0 flex-1 items-center justify-center">
         <div className="relative h-[clamp(320px,66vh,760px)] w-[clamp(260px,34vw,560px)]">
-          <div className="pointer-events-none absolute inset-x-10 top-2 h-14 rounded-full bg-gradient-to-b from-white/12 to-transparent blur-xl" />
+          <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.08),transparent_65%)] blur-2xl" />
+          <div className="pointer-events-none absolute -inset-3 rounded-[40px] border border-white/5" />
           <svg
             viewBox={INDIA_MAP.viewBox}
             className="relative h-full w-full"
@@ -233,14 +237,48 @@ function MapWithStory({ activeIndex }: { activeIndex: number }) {
               className="rounded-2xl bg-slate-900/55 p-4 text-left text-sm text-slate-100 shadow-[0_20px_60px_rgba(15,23,42,0.45)] backdrop-blur md:p-5"
             >
               <div className="mb-2 flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500/15 text-sky-300">
-                  <StepIcon className="h-4 w-4" />
+                <div className="relative flex h-9 w-9 items-center justify-center">
+                  <svg
+                    className="pointer-events-none absolute inset-0 -rotate-90"
+                    viewBox="0 0 36 36"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="15.5"
+                      fill="none"
+                      stroke="rgba(148,163,184,0.25)"
+                      strokeWidth="2"
+                    />
+                    <motion.circle
+                      key={`icon-loader-${activeIndex}`}
+                      cx="18"
+                      cy="18"
+                      r="15.5"
+                      fill="none"
+                      stroke="url(#icon-loader-gradient)"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0.08, opacity: 0.8 }}
+                      animate={{ pathLength: 1, opacity: 1 }}
+                      transition={{ duration: 0.55, ease: [0.22, 0.61, 0.36, 1] }}
+                    />
+                    <defs>
+                      <linearGradient id="icon-loader-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#7dd3fc" />
+                        <stop offset="100%" stopColor="#22d3ee" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500/15 text-sky-300">
+                    <StepIcon className="h-4 w-4" />
+                  </div>
                 </div>
-                <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-300">
-                  Step {activeIndex + 1} / {FEATURE_STEPS.length}
-                </p>
               </div>
-              <p className="text-sm font-semibold text-slate-50">{activeStep.title}</p>
+              <p className="text-sm font-semibold text-slate-50">
+                {activeIndex + 1} - {activeStep.title}
+              </p>
               <p className="mt-1.5 text-xs leading-relaxed text-slate-200 sm:text-sm">
                 {activeStep.description}
               </p>
