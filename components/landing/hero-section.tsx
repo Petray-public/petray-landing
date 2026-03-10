@@ -47,6 +47,12 @@ export function HeroSection() {
   const meshY = useTransform(scrollY, [0, 650], [0, -50]);
   const contentY = useTransform(scrollY, [0, 650], [0, -22]);
   const contentOpacity = useTransform(scrollY, [0, 650], [1, 0.92]);
+  const cardParallaxX = useTransform(scrollY, [0, 650], [0, 24]);
+  const cardParallaxY = useTransform(scrollY, [0, 650], [0, 58]);
+  const cardParallaxScale = useTransform(scrollY, [0, 650], [1.03, 0.98]);
+  const cardX = useSpring(cardParallaxX, { stiffness: 120, damping: 24, mass: 0.6 });
+  const cardY = useSpring(cardParallaxY, { stiffness: 120, damping: 24, mass: 0.6 });
+  const cardScale = useSpring(cardParallaxScale, { stiffness: 120, damping: 24, mass: 0.6 });
 
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
@@ -166,91 +172,96 @@ export function HeroSection() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
           <div className="relative mx-auto w-full max-w-lg" style={{ perspective: 1000 }}>
             <motion.div
+              style={{ x: cardX, y: cardY, scale: cardScale }}
+              className="relative transform-gpu"
+            >
+              <motion.div
               ref={cardRef}
               onMouseMove={handleCardMove}
               onMouseLeave={resetTilt}
               style={{ rotateX, rotateY }}
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative transform-gpu"
-            >
-              <div className="pointer-events-none absolute -inset-10 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.2),transparent_65%)] blur-2xl" />
+              className="relative"
+              >
+                <div className="pointer-events-none absolute -inset-10 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.2),transparent_65%)] blur-2xl" />
 
-              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_40px_140px_rgba(0,0,0,0.75)] backdrop-blur">
-                <motion.div
-                  animate={{ x: ["0%", "240%", "300%"], opacity: [0, 0.95, 0] }}
-                  transition={{ duration: 5.4, repeat: Infinity, ease: "linear", repeatDelay: 1.9 }}
-                  className="pointer-events-none absolute inset-y-0 -left-[42%] w-[42%] bg-gradient-to-r from-transparent via-white/14 to-transparent blur-md"
-                />
+                <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_40px_140px_rgba(0,0,0,0.75)] backdrop-blur">
+                  <motion.div
+                    animate={{ x: ["0%", "240%", "300%"], opacity: [0, 0.95, 0] }}
+                    transition={{ duration: 5.4, repeat: Infinity, ease: "linear", repeatDelay: 1.9 }}
+                    className="pointer-events-none absolute inset-y-0 -left-[42%] w-[42%] bg-gradient-to-r from-transparent via-white/14 to-transparent blur-md"
+                  />
 
-                <div className="flex items-center gap-3">
-                  <div className="relative h-10 w-10 overflow-hidden rounded-2xl bg-white">
-                    <Image
-                      src="/logo/image.png"
-                      alt="Petray"
-                      fill
-                      className="object-contain p-2"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">India operating dashboard</p>
-                    <p className="text-xs text-zinc-300">One view across execution, risk, and growth.</p>
-                  </div>
-                </div>
-
-                <div className="mt-6 grid gap-3">
-                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-medium uppercase tracking-[0.16em] text-zinc-400">
-                        Coverage status
-                      </p>
-                      <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-medium text-emerald-200 ring-1 ring-emerald-400/20">
-                        Live
-                      </span>
+                  <div className="flex items-center gap-3">
+                    <div className="relative h-10 w-10 overflow-hidden rounded-2xl bg-white">
+                      <Image
+                        src="/logo/image.png"
+                        alt="Petray"
+                        fill
+                        className="object-contain p-2"
+                      />
                     </div>
-                    <div className="mt-3 grid grid-cols-3 gap-2">
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[11px] text-zinc-400">Cities</p>
-                        <p className="mt-1 text-lg font-semibold text-white">12+</p>
-                      </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[11px] text-zinc-400">Support</p>
-                        <p className="mt-1 text-lg font-semibold text-white">24×7</p>
-                      </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                        <p className="text-[11px] text-zinc-400">SLA</p>
-                        <p className="mt-1 text-lg font-semibold text-white">98%</p>
-                      </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">India operating dashboard</p>
+                      <p className="text-xs text-zinc-300">One view across execution, risk, and growth.</p>
                     </div>
                   </div>
 
-                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-                    <p className="text-xs font-medium uppercase tracking-[0.16em] text-zinc-400">
-                      Today&apos;s focus
-                    </p>
-                    <div className="mt-3 space-y-2">
-                      {[
-                        { label: "BIS & compliance readiness", value: 0.78 },
-                        { label: "Warehouse activation", value: 0.62 },
-                        { label: "After-sales coverage", value: 0.86 },
-                      ].map((row) => (
-                        <div key={row.label} className="space-y-1">
-                          <div className="flex items-center justify-between text-[12px] text-zinc-300">
-                            <span>{row.label}</span>
-                            <span className="text-zinc-400">{Math.round(row.value * 100)}%</span>
-                          </div>
-                          <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
-                            <div
-                              className="h-full rounded-full bg-gradient-to-r from-sky-400/70 to-cyan-300/60"
-                              style={{ width: `${row.value * 100}%` }}
-                            />
-                          </div>
+                  <div className="mt-6 grid gap-3">
+                    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs font-medium uppercase tracking-[0.16em] text-zinc-400">
+                          Coverage status
+                        </p>
+                        <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-medium text-emerald-200 ring-1 ring-emerald-400/20">
+                          Live
+                        </span>
+                      </div>
+                      <div className="mt-3 grid grid-cols-3 gap-2">
+                        <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                          <p className="text-[11px] text-zinc-400">Cities</p>
+                          <p className="mt-1 text-lg font-semibold text-white">12+</p>
                         </div>
-                      ))}
+                        <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                          <p className="text-[11px] text-zinc-400">Support</p>
+                          <p className="mt-1 text-lg font-semibold text-white">24×7</p>
+                        </div>
+                        <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                          <p className="text-[11px] text-zinc-400">SLA</p>
+                          <p className="mt-1 text-lg font-semibold text-white">98%</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                      <p className="text-xs font-medium uppercase tracking-[0.16em] text-zinc-400">
+                        Today&apos;s focus
+                      </p>
+                      <div className="mt-3 space-y-2">
+                        {[
+                          { label: "BIS & compliance readiness", value: 0.78 },
+                          { label: "Warehouse activation", value: 0.62 },
+                          { label: "After-sales coverage", value: 0.86 },
+                        ].map((row) => (
+                          <div key={row.label} className="space-y-1">
+                            <div className="flex items-center justify-between text-[12px] text-zinc-300">
+                              <span>{row.label}</span>
+                              <span className="text-zinc-400">{Math.round(row.value * 100)}%</span>
+                            </div>
+                            <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                              <div
+                                className="h-full rounded-full bg-gradient-to-r from-sky-400/70 to-cyan-300/60"
+                                style={{ width: `${row.value * 100}%` }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </motion.div>
