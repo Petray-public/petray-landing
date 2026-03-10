@@ -42,6 +42,12 @@ const STATS: Stat[] = [
   },
 ];
 
+const WHY_NOW_POINTS = [
+  "India demand is real, but fragmented execution kills momentum.",
+  "Compliance, logistics, and support must run in one operating rhythm.",
+  "Long-term wins come from one accountable partner, not rotating vendors.",
+];
+
 function AnimatedNumber({ value, suffix }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement | null>(null);
   const motionValue = useMotionValue(0);
@@ -83,10 +89,9 @@ export function MarketOpportunitySection() {
     offset: ["start end", "end start"],
   });
 
-  // Keep heading stable; only subtle depth on supporting layers.
-  const panelY = useTransform(scrollYProgress, [0, 1], [24, -24]);
-  const panelTilt = useTransform(scrollYProgress, [0, 1], [6, 0]);
-  const glowY = useTransform(scrollYProgress, [0, 1], [22, -22]);
+  const panelY = useTransform(scrollYProgress, [0, 1], [16, -16]);
+  const panelTilt = useTransform(scrollYProgress, [0, 1], [4, 0]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [16, -16]);
 
   return (
     <SectionShell
@@ -99,28 +104,48 @@ export function MarketOpportunitySection() {
       >
         <motion.div
           style={{ y: glowY }}
-          className="pointer-events-none absolute inset-0 -z-10 opacity-45 [background-image:radial-gradient(circle_at_16%_30%,rgba(56,189,248,0.12),transparent_34%),radial-gradient(circle_at_86%_68%,rgba(14,165,233,0.12),transparent_35%)]"
+          className="pointer-events-none absolute inset-0 -z-10 opacity-35 [background-image:radial-gradient(circle_at_18%_24%,rgba(56,189,248,0.10),transparent_34%),radial-gradient(circle_at_82%_76%,rgba(14,165,233,0.10),transparent_36%)]"
         />
         <div className="space-y-6">
-          <SectionHeader
-            eyebrow="Why now"
-            title="India is a growth engine you can&apos;t afford to treat as an experiment."
-            description="Global brands see India as a strategic market, but fragmented partners and one-off launches create inconsistent customer experiences. Petray gives you a single, accountable operating arm on the ground."
-            tone="onDark"
-            className="max-w-xl"
-          />
-          <p className="max-w-xl text-sm text-zinc-300 sm:text-base">
-            With a unified view across compliance, warehousing, distribution, and after-sales, you
-            can make confident long-term bets instead of cycling through disconnected pilots and
-            stop-gap partners.
-          </p>
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 shadow-[0_22px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:p-7">
+            <SectionHeader
+              eyebrow="Why now"
+              title="India is a growth engine you can&apos;t afford to treat as an experiment."
+              description="Global brands see India as a strategic market, but fragmented partners and one-off launches create inconsistent customer experiences. Petray gives you a single, accountable operating arm on the ground."
+              tone="onDark"
+              className="max-w-xl"
+            />
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
+              With a unified view across compliance, warehousing, distribution, and after-sales,
+              you can make confident long-term bets instead of cycling through disconnected pilots
+              and stop-gap partners.
+            </p>
+
+            <div className="mt-6 space-y-0">
+              {WHY_NOW_POINTS.map((point, index) => (
+                <div
+                  key={point}
+                  className="flex items-start gap-3 border-t border-white/10 py-4 first:border-t-0 first:pt-0 last:pb-0"
+                >
+                  <span className="mt-0.5 text-[11px] font-medium uppercase tracking-[0.16em] text-sky-300/90">
+                    0{index + 1}
+                  </span>
+                  <p className="text-sm leading-relaxed text-zinc-200">{point}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <motion.div
           style={{ y: panelY, rotateX: panelTilt as MotionValue<number> }}
-          className="relative grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_24px_90px_rgba(0,0,0,0.55)] backdrop-blur sm:gap-5 sm:p-6"
+          className="relative grid gap-3 rounded-3xl border border-white/10 bg-white/[0.03] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.58)] backdrop-blur-xl sm:gap-4 sm:p-6"
         >
-          <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_60%)]" />
+          <div className="mb-2 border-b border-white/10 pb-3">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-400">
+              Operating signals
+            </p>
+          </div>
           {STATS.map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -132,7 +157,7 @@ export function MarketOpportunitySection() {
                 delay: index * 0.08,
                 ease: [0.22, 0.61, 0.36, 1],
               }}
-              className="group flex flex-col gap-2 rounded-2xl border border-white/10 bg-black/40 px-4 py-4 transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white/5"
+              className="group flex flex-col gap-2 rounded-2xl border border-white/10 bg-black/40 px-4 py-4 transition-transform duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/5"
             >
               <p className="text-xs font-medium uppercase tracking-[0.16em] text-zinc-400">
                 {stat.label}
