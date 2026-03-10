@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-black/95">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-8 text-xs text-zinc-400 sm:px-6 md:px-8 md:text-sm">
+    <footer className="bg-black">
+      <div className="mx-auto my-4 flex w-[min(1120px,100%-32px)] items-center justify-between gap-4 rounded-2xl border border-white/10 bg-black/95 px-5 py-5 text-xs text-zinc-400 sm:px-6 md:px-8 md:text-sm">
         <div className="flex items-center gap-4">
           <div className="relative h-11 w-11 overflow-hidden rounded-2xl bg-white">
             <Image
