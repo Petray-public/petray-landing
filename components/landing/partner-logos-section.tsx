@@ -24,6 +24,12 @@ const wrap: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 0.61, 0.36, 1] } },
 };
 
+const TRUST_METRICS = [
+  { label: "Markets launched", value: "12+" },
+  { label: "Support availability", value: "24x7" },
+  { label: "Execution model", value: "End-to-end" },
+];
+
 export function PartnerLogosSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -39,6 +45,16 @@ export function PartnerLogosSection() {
       className="bg-black pb-16 pt-12 text-white md:pb-20 md:pt-16"
     >
       <div ref={sectionRef} className="relative flex flex-col gap-10">
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-3xl">
+          <Image
+            src="/images/band-soft.jpg"
+            alt="Soft trust background"
+            fill
+            className="object-cover opacity-15"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/80" />
+        </div>
+
         {/* Soft marquee of blurred logos drifting in the background */}
         <div className="pointer-events-none absolute inset-x-0 top-6 -z-10 overflow-hidden opacity-30">
           <motion.div
@@ -74,6 +90,20 @@ export function PartnerLogosSection() {
             className="mx-auto max-w-4xl"
           />
         </motion.div>
+
+        <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-3 sm:grid-cols-3">
+          {TRUST_METRICS.map((metric) => (
+            <div
+              key={metric.label}
+              className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-center backdrop-blur"
+            >
+              <p className="text-lg font-semibold tracking-tight text-white">{metric.value}</p>
+              <p className="mt-1 text-[11px] uppercase tracking-[0.16em] text-zinc-400">
+                {metric.label}
+              </p>
+            </div>
+          ))}
+        </div>
 
         <motion.div
           style={{ y: gridY }}
@@ -113,7 +143,7 @@ function ParallaxLogoTile({
   return (
     <motion.div
       style={{ y: parallaxY, rotate: parallaxRotate }}
-      className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-[0_18px_70px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white/10"
+      className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 shadow-[0_18px_70px_rgba(0,0,0,0.45)] backdrop-blur transition-transform duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09]"
       aria-label={logo.name}
     >
       <div className="relative h-8 w-8 rounded-xl bg-white/5 ring-1 ring-white/10">
