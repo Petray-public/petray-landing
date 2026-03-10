@@ -72,20 +72,23 @@ export function SiteNavbar() {
             />
           </div>
           <div className="hidden sm:block">
-            <p className="text-sm font-semibold tracking-tight text-white">Petray</p>
-            <p className="text-[11px] text-zinc-300">India operating arm</p>
+            <p className="text-lg font-semibold tracking-tight text-white">Petray</p>
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center gap-7 lg:flex">
           {LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="text-sm text-zinc-300 hover:text-white">
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-[15px] text-zinc-300 transition-colors hover:text-white"
+            >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <Button size="sm" className="rounded-full bg-white px-4 text-black hover:bg-white/90">
+        <Button className="rounded-full bg-white px-5 text-sm text-black hover:bg-white/90">
           Launch in India
         </Button>
       </motion.div>
