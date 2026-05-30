@@ -1,11 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, type Variants, useScroll, useTransform } from "framer-motion";
 import { SectionShell } from "@/components/section-shell";
 import { Button } from "@/components/ui/button";
-
 const wrap: Variants = {
   hidden: { opacity: 0, y: 18 },
   show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 0.61, 0.36, 1] } },
@@ -13,15 +12,24 @@ const wrap: Variants = {
 
 export function CallToActionSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const contentY = useTransform(scrollYProgress, [0, 1], [18, -12]);
-  const headingY = useTransform(scrollYProgress, [0, 1], [8, -14]);
-  const actionsY = useTransform(scrollYProgress, [0, 1], [18, -6]);
-  const glowY = useTransform(scrollYProgress, [0, 1], [36, -36]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [isMobile ? 10 : 18, isMobile ? -8 : -12]);
+  const headingY = useTransform(scrollYProgress, [0, 1], [isMobile ? 4 : 8, isMobile ? -8 : -14]);
+  const actionsY = useTransform(scrollYProgress, [0, 1], [isMobile ? 10 : 18, isMobile ? -4 : -6]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [isMobile ? 18 : 36, isMobile ? -18 : -36]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const onChange = () => setIsMobile(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   return (
     <SectionShell
@@ -75,9 +83,10 @@ export function CallToActionSection() {
           >
             <Button
               size="lg"
+              asChild
               className="rounded-full bg-white px-7 py-2.5 text-sm text-black shadow-[0_18px_70px_rgba(255,255,255,0.10)] hover:bg-white/90 md:text-base"
             >
-              Talk to our India team
+              <a href="#contact">Talk to our India team</a>
             </Button>
             <Button
               size="lg"
