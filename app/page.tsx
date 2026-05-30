@@ -7,6 +7,7 @@ import {
   PartnerLogosSection,
   CallToActionSection,
   CareersSection,
+  ContactSection,
 } from "@/components/landing";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SiteFooter } from "@/components/site-footer";
@@ -23,6 +24,7 @@ export default function Home() {
       <PartnerLogosSection />
       <CallToActionSection />
       <CareersSection />
+      <ContactSection />
       <SiteFooter />
     </main>
   );
