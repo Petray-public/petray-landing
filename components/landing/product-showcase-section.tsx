@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants, type MotionValue, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionShell } from "@/components/section-shell";
 import { SectionHeader } from "@/components/section-header";
 import {
@@ -79,12 +79,22 @@ const FEATURES: Feature[] = [
 
 export function ProductShowcaseSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
   const bgY = useTransform(scrollYProgress, [0, 1], [40, -40]);
   const headerY = useTransform(scrollYProgress, [0, 1], [16, -16]);
+  const parallaxStrength = isMobile ? 10 : 22;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const onChange = () => setIsMobile(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   return (
     <SectionShell id="product" className="bg-black pb-20 pt-16 text-white md:pb-28 md:pt-20">
@@ -124,6 +134,7 @@ export function ProductShowcaseSection() {
               feature={feature}
               index={index}
               scrollYProgress={scrollYProgress}
+              strength={parallaxStrength}
               className={index === 0 || index === 5 ? "lg:col-span-6" : "lg:col-span-3"}
             />
           ))}
@@ -137,16 +148,18 @@ function ParallaxCapabilityCard({
   feature,
   index,
   scrollYProgress,
+  strength,
   className,
 }: {
   feature: Feature;
   index: number;
   scrollYProgress: MotionValue<number>;
+  strength: number;
   className?: string;
 }) {
   const Icon = feature.icon;
   // Stronger, more noticeable parallax range
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [index * 22, -index * 22]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [index * strength, -index * strength]);
   const parallaxScale = useTransform(scrollYProgress, [0, 1], [1.01, 0.99]);
 
   return (
