@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, type Variants, type MotionValue, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionShell } from "@/components/section-shell";
 import { SectionHeader } from "@/components/section-header";
 
@@ -32,12 +32,22 @@ const TRUST_METRICS = [
 
 export function PartnerLogosSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
   const headerY = useTransform(scrollYProgress, [0, 1], [14, -14]);
   const gridY = useTransform(scrollYProgress, [0, 1], [26, -22]);
+  const tileStrength = isMobile ? 6 : 10;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const onChange = () => setIsMobile(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   return (
     <SectionShell
@@ -119,6 +129,7 @@ export function PartnerLogosSection() {
               logo={logo}
               index={index}
               scrollYProgress={scrollYProgress}
+              strength={tileStrength}
             />
           ))}
         </motion.div>
@@ -131,13 +142,15 @@ function ParallaxLogoTile({
   logo,
   index,
   scrollYProgress,
+  strength,
 }: {
   logo: Logo;
   index: number;
   scrollYProgress: MotionValue<number>;
+  strength: number;
 }) {
   // Stronger parallax so tiles feel more layered as you scroll
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [index * 10, -index * 10]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [index * strength, -index * strength]);
   const parallaxRotate = useTransform(scrollYProgress, [0, 1], [-0.8 + index * 0.2, 0.8 - index * 0.2]);
 
   return (
