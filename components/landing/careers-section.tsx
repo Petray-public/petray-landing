@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, type Variants, useScroll, useTransform } from "framer-motion";
 import { Briefcase, MapPin, Clock3, ArrowUpRight } from "lucide-react";
@@ -48,13 +48,22 @@ const card: Variants = {
 
 export function CareersSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const leftY = useTransform(scrollYProgress, [0, 1], [16, -8]);
-  const rightY = useTransform(scrollYProgress, [0, 1], [24, -16]);
+  const leftY = useTransform(scrollYProgress, [0, 1], [isMobile ? 10 : 16, isMobile ? -6 : -8]);
+  const rightY = useTransform(scrollYProgress, [0, 1], [isMobile ? 12 : 24, isMobile ? -10 : -16]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const onChange = () => setIsMobile(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   return (
     <SectionShell
