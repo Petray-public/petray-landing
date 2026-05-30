@@ -12,6 +12,7 @@ const LINKS = [
   { href: "#market", label: "Infrastructure" },
   { href: "#partners", label: "Brands" },
   { href: "#careers", label: "Careers" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function SiteNavbar() {
