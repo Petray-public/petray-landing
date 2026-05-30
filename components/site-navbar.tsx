@@ -89,8 +89,11 @@ export function SiteNavbar() {
           ))}
         </nav>
 
-        <Button className="rounded-full bg-white px-5 text-sm text-black hover:bg-white/90">
-          Launch in India
+        <Button
+          asChild
+          className="rounded-full bg-white px-5 text-sm text-black hover:bg-white/90"
+        >
+          <a href="#contact">Launch in India</a>
         </Button>
       </motion.div>
     </motion.header>
