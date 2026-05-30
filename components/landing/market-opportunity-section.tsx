@@ -84,14 +84,23 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix?: string }) {
 
 export function MarketOpportunitySection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const panelY = useTransform(scrollYProgress, [0, 1], [16, -16]);
-  const panelTilt = useTransform(scrollYProgress, [0, 1], [4, 0]);
-  const glowY = useTransform(scrollYProgress, [0, 1], [16, -16]);
+  const panelY = useTransform(scrollYProgress, [0, 1], [isMobile ? 14 : 22, isMobile ? -14 : -22]);
+  const panelTilt = useTransform(scrollYProgress, [0, 1], [isMobile ? 3 : 5, 0]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [isMobile ? 12 : 18, isMobile ? -12 : -18]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const onChange = () => setIsMobile(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   return (
     <SectionShell
