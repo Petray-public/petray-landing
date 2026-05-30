@@ -149,9 +149,10 @@ export function HeroSection() {
           <motion.div variants={item} className="flex flex-wrap items-center gap-4">
             <Button
               size="lg"
+              asChild
               className="rounded-full bg-white px-6 py-2.5 text-sm text-black shadow-[0_18px_70px_rgba(255,255,255,0.10)] hover:bg-white/90 md:text-base"
             >
-              Launch in India
+              <a href="#contact">Launch in India</a>
             </Button>
             <Button
               size="lg"
