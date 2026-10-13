@@ -1,0 +1,53 @@
+/* Version 1 hero only. Scoped selectors prevent changes to later Site sections.
+   The same original display font is now registered as Nimbus Sans Narrow.
+   Version 1's unitless font-size:.78 was invalid; .645em was its effective value. */
+.og-hero{--og-blue:#145cb5;--og-ink:#0b1424;--og-paper:#fcfcfc;padding:52px clamp(24px,5.2vw,90px) 46px;display:grid;grid-template-columns:51% 49%;align-items:center;min-height:calc(100svh - 240px);position:relative;background:var(--og-paper);color:var(--og-ink);text-align:left}
+.og-hero-copy{position:relative;z-index:2;min-width:0}
+.og-eyebrow{display:flex;align-items:center;gap:24px;margin-bottom:25px;max-width:520px}
+.og-eyebrow span{font-size:12px;letter-spacing:4px;font-weight:700;white-space:nowrap}
+.og-eyebrow i{height:1px;flex:1;background:var(--og-ink)}
+.og-hero h1{font-family:'Nimbus Sans Narrow','Arial Narrow',Arial,sans-serif;font-weight:700;margin:0 0 28px;letter-spacing:-.025em;line-height:.855;font-size:clamp(96px,10.8vw,180px);-webkit-text-stroke:1.7px currentColor;color:var(--og-ink)}
+.og-hero h1 span{display:block;width:max-content;padding:0 2px .075em 0}
+.og-hero h1 .og-blue{color:var(--og-blue)}
+.og-hero h1 .og-business-line{font-size:.645em;letter-spacing:-.026em;padding-bottom:0}
+.og-intro{font-size:clamp(18px,1.65vw,24px);line-height:1.35;margin:0 0 27px;letter-spacing:-.4px}
+.og-hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.og-hero-actions button{min-height:54px;font-weight:700;font-size:16px;padding:16px 24px;border:1px solid var(--og-ink);transition:background .18s,color .18s,transform .18s}
+.og-hero-actions .og-outline:hover{background:var(--og-ink);color:var(--og-paper)}
+.og-hero-actions .og-primary{background:var(--og-blue);color:white;border-color:var(--og-blue)}
+.og-hero-actions .og-primary:hover{background:#0b4a97;transform:translateY(-2px)}
+.og-hero-art{position:relative;z-index:1;width:122%;margin-left:-12%;pointer-events:none;transform:rotate(-1deg)}
+.og-hero-art img{width:100%;height:auto;aspect-ratio:1;display:block;object-fit:contain}
+/* Preserve the existing theme functionality with the restored solid type. */
+html[data-theme=dark] .og-hero{--og-blue:#79a9ff;--og-ink:#edf1f7;--og-paper:var(--paper)}
+html[data-theme=dark] .og-hero-art img{-webkit-mask-image:url('/assets/hero-collage-mask.png');mask-image:url('/assets/hero-collage-mask.png');-webkit-mask-size:contain;mask-size:contain;-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+html[data-theme=dark] .og-hero-actions .og-primary{background:#145cb5;border-color:#145cb5}
+html[data-theme=dark] .og-hero-actions .og-primary:hover{background:#0b4a97}
+@media(min-width:1600px){.og-hero-art{max-width:930px}.og-hero{min-height:780px}}
+@media(max-width:1100px){
+  .og-hero{padding-top:40px;padding-bottom:40px}
+  .og-eyebrow span{letter-spacing:2.5px}
+  .og-eyebrow{gap:20px}
+  .og-hero-actions{gap:12px}
+  .og-hero-actions button{font-size:14px;padding:14px 18px}
+}
+@media(max-width:760px){
+  .og-hero{display:flex;flex-direction:column;align-items:stretch;padding:34px 24px 10px;min-height:0;overflow:hidden}
+  .og-eyebrow{margin-bottom:22px;gap:17px;max-width:100%}
+  .og-eyebrow span{font-size:12px;letter-spacing:1.5px}
+  .og-eyebrow i{min-width:24px}
+  .og-hero h1{font-size:clamp(84px,24.8vw,160px);line-height:.84;margin-bottom:25px;-webkit-text-stroke:1.4px currentColor;letter-spacing:-.018em}
+  .og-hero h1 span{padding-bottom:.085em}
+  .og-hero h1 .og-business-line{font-size:.635em;letter-spacing:-.025em;padding-bottom:0}
+  .og-intro{font-size:18px;line-height:1.45;letter-spacing:-.3px;margin-bottom:21px}
+  .og-hero-actions{gap:10px;flex-wrap:nowrap}
+  .og-hero-actions button{font-size:14px;padding:14px 15px;min-height:51px;white-space:nowrap}
+  .og-hero-art{width:114%;margin:16px -7% 0;max-width:680px;align-self:center;transform:rotate(-1deg)}
+}
+@media(max-width:360px){
+  .og-hero-actions{flex-direction:column}
+  .og-hero-actions button{width:100%}
+  .og-eyebrow span{letter-spacing:1px}
+  .og-hero h1{font-size:24vw}
+}
+@media(prefers-reduced-motion:reduce){.og-hero *,.og-hero *::before,.og-hero *::after{transition:none!important;animation:none!important}}
