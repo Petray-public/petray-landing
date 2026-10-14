@@ -1,0 +1,145 @@
+/* A moving editorial stage, built around Petray's approved brand artwork. */
+.hero-experience{
+  --scene-accent:#075af2;--scene-wash:#eaf0fe;--scene-line:#c9d7f4;
+  --hero-departure:0;position:relative;isolation:isolate;overflow:hidden;
+  padding:26px clamp(24px,5.2vw,90px) 0;background:var(--paper);
+}
+.hero-experience[data-chapter=fastron]{--scene-accent:#303a48;--scene-wash:#e8ebee;--scene-line:#c5ccd3}
+.hero-experience[data-chapter=boltz]{--scene-accent:#ac510a;--scene-wash:#fff0da;--scene-line:#eed1a8}
+.hero-experience[data-chapter=lazeelab]{--scene-accent:#602cd1;--scene-wash:#eee7fa;--scene-line:#d9c9ef}
+.hero-experience[data-chapter=chili]{--scene-accent:#167a7d;--scene-wash:#e2f0ee;--scene-line:#b7d6d3}
+.hero-experience::before{content:"";position:absolute;z-index:-1;top:11%;bottom:15%;left:52%;right:-10%;background:var(--scene-wash);transform:skewY(-10deg);transition:background-color 1.2s,transform 2s cubic-bezier(.22,1,.36,1)}
+.hero-experience[data-chapter=boltz]::before,.hero-experience[data-chapter=chili]::before{transform:skewY(8deg) translateY(4%)}
+.experience-heading{display:flex;justify-content:space-between;gap:24px;font-size:.8125rem;line-height:1.5;color:var(--muted)}
+.experience-heading p{margin:0}
+.experience-composition{display:grid;grid-template-columns:minmax(0,.36fr) minmax(0,.64fr);align-items:center;gap:16px;padding:20px 0 16px}
+.experience-copy{position:relative;z-index:3;transform:translateY(calc(var(--hero-departure)*-48px))}
+.hero-experience h1{font-size:clamp(5rem,9.5vw,9.4rem);line-height:.89;letter-spacing:-.025em;margin:0 0 28px;-webkit-text-stroke:0}
+.hero-experience h1 .type-window{width:100%;max-width:100%;overflow:hidden;padding:0 0 .08em;display:block}
+.hero-experience h1 .type-window>span{display:block;width:max-content;padding:0;animation:experience-type-enter 1.05s cubic-bezier(.22,1,.36,1) both}
+.hero-experience h1 .type-window:nth-child(2)>span{animation-delay:.1s}
+.hero-experience h1 .type-window:nth-child(3)>span{animation-delay:.2s}
+.hero-experience h1 .type-window:nth-child(4)>span{animation-delay:.3s}
+.hero-experience h1 .type-business{font-size:.56em;letter-spacing:-.025em;padding-bottom:.04em}
+.hero-experience h1 .type-outline{color:transparent;-webkit-text-stroke:1.25px var(--ink)}
+.experience-intro{font-size:clamp(1.0625rem,1.3vw,1.3125rem);line-height:1.55;margin:0 0 20px;max-width:30ch}
+.experience-link{display:inline-flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:44px;padding:8px 0;font-size:1rem;font-weight:700}
+.experience-link .link-line{display:block;width:100%;height:2px;background:var(--scene-accent);transform-origin:left;transition:transform .4s}
+.experience-link:hover .link-line{transform:scaleX(.6)}
+.experience-theatre{min-width:0;position:relative;transform:translateY(calc(var(--hero-departure)*38px))}
+.experience-stage{position:relative;aspect-ratio:1.13;width:100%;overflow:hidden;isolation:isolate;perspective:1400px;touch-action:pan-y;user-select:none}
+.stage-word{position:absolute;z-index:-1;top:2%;left:0;width:100%;text-align:center;font-family:'Nimbus Sans Narrow',sans-serif;font-weight:700;font-size:clamp(4.5rem,12vw,12rem);line-height:1;letter-spacing:-.045em;color:var(--scene-accent);opacity:.14;animation:stage-word-enter 1.2s cubic-bezier(.22,1,.36,1) both}
+.hero-experience[data-chapter=lazeelab] .stage-word,.hero-experience[data-chapter=chili] .stage-word{font-size:clamp(3.5rem,9vw,9rem)}
+.stage-keyline{position:absolute;inset:12% 10%;z-index:-1;border:1px solid var(--scene-line);transform:rotate(-7deg);animation:stage-frame-drift 16s ease-in-out infinite;transition:border-color 1.2s}
+.stage-parallax{position:absolute;inset:0;transform:translate3d(var(--pointer-x,0px),var(--pointer-y,0px),0) rotateX(var(--pointer-rx,0deg)) rotateY(var(--pointer-ry,0deg));transition:transform 1.25s cubic-bezier(.22,1,.36,1)}
+.stage-camera{position:absolute;inset:0;transform:translate3d(var(--camera-x,0%),var(--camera-y,0%),0) scale(var(--camera-scale,1));transition:transform 2.4s cubic-bezier(.22,1,.36,1)}
+.stage-art-float{width:100%;height:100%;animation:stage-art-breathe 12s ease-in-out infinite}
+.stage-art-float img{display:block;width:100%;height:100%;object-fit:contain;-webkit-mask-image:url('/assets/hero-collage-mask.png');mask-image:url('/assets/hero-collage-mask.png');-webkit-mask-size:contain;mask-size:contain;-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;animation:stage-art-enter 1.6s cubic-bezier(.22,1,.36,1) both}
+.stage-coordinate{position:absolute;right:0;bottom:0;padding:8px 0 8px 12px;background:var(--paper);color:var(--muted);font-size:.75rem;font-variant-numeric:tabular-nums}
+.experience-caption{min-height:65px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid var(--line);position:relative;z-index:2}
+.chapter-caption{display:flex;align-items:center;gap:20px;min-width:0;animation:caption-enter .65s cubic-bezier(.22,1,.36,1) both}
+.chapter-caption>span:last-child{font-size:.875rem;line-height:1.45}
+.chapter-caption .original-logo{width:128px}
+.chapter-caption .logo-chili{width:135px}
+.chapter-caption .logo-boltz{width:44px}
+.chapter-caption .logo-lazeelab{width:112px}
+.experience-footer{display:flex;justify-content:flex-end;align-items:center;padding:14px 0 24px;border-top:1px solid var(--line)}
+.experience-scroll{display:flex;align-items:center;justify-content:flex-end;gap:14px;min-height:44px;font-size:.8125rem;color:var(--muted)}
+.experience-scroll>span{display:block;width:1px;height:32px;background:var(--line);position:relative;overflow:hidden}
+.experience-scroll>span::after{content:"";position:absolute;width:1px;height:50%;background:var(--scene-accent);animation:scroll-cue 2s cubic-bezier(.65,0,.35,1) infinite}
+.hero-experience[data-motion-paused=true] .stage-art-float,.hero-experience[data-motion-paused=true] .stage-keyline,.hero-experience[data-motion-paused=true] .experience-scroll>span::after{animation-play-state:paused}
+.hero-experience[data-motion-paused=true] .stage-parallax{transform:none}
+
+html[data-theme=dark] .hero-experience{--scene-accent:#8eb5ff;--scene-wash:#121f38;--scene-line:#2b4268}
+html[data-theme=dark] .hero-experience[data-chapter=fastron]{--scene-accent:#c1cbd8;--scene-wash:#1c242e;--scene-line:#35414f}
+html[data-theme=dark] .hero-experience[data-chapter=boltz]{--scene-accent:#ffc074;--scene-wash:#302419;--scene-line:#57402a}
+html[data-theme=dark] .hero-experience[data-chapter=lazeelab]{--scene-accent:#c7acff;--scene-wash:#281d3c;--scene-line:#483665}
+html[data-theme=dark] .hero-experience[data-chapter=chili]{--scene-accent:#8ddad7;--scene-wash:#172d31;--scene-line:#315354}
+html[data-theme=dark] .stage-word{opacity:.2}
+
+/* Story and imagery arrive as a pair when each brand enters the viewport. */
+.page-motion[data-motion=ready] :is(.brand-section,.distribution-partner) :is(.brand-story,.partner-story){transition:opacity .9s,transform .9s cubic-bezier(.22,1,.36,1)}
+.page-motion[data-motion=ready] :is(.brand-section,.distribution-partner) :is(.brand-showcase,.partner-showcase){transition:opacity 1s .1s,transform 1.1s cubic-bezier(.22,1,.36,1) .1s}
+.page-motion[data-motion=ready] :is(.brand-section,.distribution-partner):not([data-revealed=true]) :is(.brand-story,.partner-story){opacity:0;transform:translate3d(-35px,0,0)}
+.page-motion[data-motion=ready] :is(.brand-section,.distribution-partner):not([data-revealed=true]) :is(.brand-showcase,.partner-showcase){opacity:0;transform:translate3d(0,65px,0) rotate(1.5deg)}
+.page-motion[data-motion=ready] :is(.brand-section,.distribution-partner):focus-within :is(.brand-story,.partner-story,.brand-showcase,.partner-showcase){opacity:1;transform:none}
+.page-motion[data-motion=ready] :is(.businesses-intro,.distribution-intro){transition:opacity .8s,transform .8s cubic-bezier(.22,1,.36,1)}
+.page-motion[data-motion=ready] :is(.businesses-intro,.distribution-intro):not([data-revealed=true]){opacity:0;transform:translateY(28px)}
+.brand-section,.distribution-partner{overflow:hidden}
+.product-image img,.partner-product-image img,.gummy-grid img{transition:transform .8s cubic-bezier(.22,1,.36,1)}
+@media(hover:hover) and (pointer:fine){
+  .product:hover .product-image img,.partner-product:hover .partner-product-image img,.gummy-grid figure:hover img{transform:translateY(-6px) scale(1.045)}
+  .brand-website,.partner-website{transition:transform .35s,background-color .25s,color .25s}
+  .brand-website:hover,.partner-website:hover{transform:translateY(-3px)}
+}
+
+@keyframes experience-type-enter{from{transform:translate3d(0,112%,0) rotate(4deg)}to{transform:translate3d(0,0,0) rotate(0)}}
+@keyframes stage-art-enter{from{opacity:0;transform:translate3d(8%,5%,0) scale(.85) rotate(5deg)}to{opacity:1;transform:translate3d(0,0,0) scale(1) rotate(0)}}
+@keyframes stage-art-breathe{0%,100%{transform:translate3d(0,0,0) rotate(-.5deg)}50%{transform:translate3d(0,-12px,0) rotate(.5deg)}}
+@keyframes stage-word-enter{from{transform:translate3d(10%,60%,0);opacity:0}to{transform:translate3d(0,0,0);opacity:.14}}
+@keyframes stage-frame-drift{0%,100%{transform:rotate(-7deg) scale(.95)}50%{transform:rotate(5deg) scale(1.02)}}
+@keyframes caption-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scroll-cue{0%{transform:translateY(-100%)}100%{transform:translateY(220%)}}
+
+@media(min-width:1600px){.experience-composition{padding:28px 0}.experience-stage{max-height:710px}.hero-experience h1{font-size:9.4rem}}
+@media(max-width:1100px) and (min-width:761px){
+  .experience-composition{grid-template-columns:minmax(0,.4fr) minmax(0,.6fr);gap:0}
+  .hero-experience h1{font-size:clamp(4.625rem,9.5vw,6.5rem)}
+  .experience-intro{font-size:1rem}
+  .experience-footer{display:none}
+  .experience-scroll{display:none}
+  .experience-caption{gap:10px}
+  .chapter-caption{gap:12px;flex-wrap:wrap;padding:10px 0}
+  .chapter-caption .original-logo{width:110px}
+  .chapter-caption .logo-boltz{width:40px}
+  .chapter-caption>span:last-child{font-size:.8125rem}
+}
+@media(max-width:760px){
+  .hero-experience{padding:22px 24px 0}
+  .hero-experience::before{top:38%;left:16%;bottom:16%;right:-20%}
+  .experience-heading{font-size:.75rem}
+  .experience-composition{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:26px 0 10px}
+  .experience-copy{transform:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);column-gap:18px;align-items:end}
+  .hero-experience h1{font-size:clamp(3.2rem,13.1vw,5.8rem);line-height:.93;margin:0;grid-row:span 2}
+  .hero-experience h1 .type-business{font-size:.56em}
+  .hero-experience h1 .type-outline{-webkit-text-stroke:1px var(--ink)}
+  .experience-intro{font-size:1rem;line-height:1.5;margin:0 0 8px}
+  .experience-link{font-size:.875rem;line-height:1.4;gap:5px;justify-self:start;align-self:start}
+  .experience-theatre{transform:none;margin-top:18px}
+  .experience-stage{width:calc(100% + 32px);margin:0 -16px;aspect-ratio:1.1}
+  .stage-word{font-size:clamp(4rem,18vw,8rem)}
+  .hero-experience[data-chapter=lazeelab] .stage-word,.hero-experience[data-chapter=chili] .stage-word{font-size:15vw}
+  .stage-parallax{transform:none!important}
+  .stage-camera{transition-duration:1.9s}
+  .stage-art-float{animation:stage-art-breathe 14s ease-in-out infinite}
+  .stage-coordinate{right:16px;font-size:.75rem}
+  .experience-caption{min-height:67px;gap:10px}
+  .chapter-caption{gap:12px}
+  .chapter-caption>span:last-child{font-size:.8125rem;max-width:16ch}
+  .chapter-caption .original-logo{width:106px}
+  .chapter-caption .logo-boltz{width:40px}
+  .chapter-caption .logo-lazeelab{width:92px}
+  .experience-footer{display:none}
+  .experience-scroll{display:none}
+  .brand-band{padding-top:8px}
+  .page-motion[data-motion=ready] :is(.brand-section,.distribution-partner):not([data-revealed=true]) :is(.brand-story,.partner-story){transform:translateY(24px)}
+  .page-motion[data-motion=ready] :is(.brand-section,.distribution-partner):not([data-revealed=true]) :is(.brand-showcase,.partner-showcase){transform:translateY(32px)}
+}
+@media(max-width:380px){
+  .hero-experience{padding-left:20px;padding-right:20px}
+  .experience-copy{grid-template-columns:minmax(0,1fr) minmax(0,.82fr);column-gap:12px}
+  .experience-intro{font-size:1rem}
+  .hero-experience h1{font-size:13.1vw}
+  .chapter-caption .original-logo{width:88px}
+  .chapter-caption .logo-boltz{width:36px}
+  .chapter-caption>span:last-child{font-size:.75rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-experience *, .hero-experience *::before,.hero-experience *::after,.hero-experience::before{animation:none!important;transition:none!important}
+  .experience-copy,.experience-theatre,.stage-parallax{transform:none!important}
+  .stage-word{opacity:.14}
+  .stage-art-float,.stage-art-float img{transform:none}
+  .experience-scroll>span{display:none}
+  .page-motion :is(.brand-story,.partner-story,.brand-showcase,.partner-showcase,.businesses-intro,.distribution-intro){opacity:1!important;transform:none!important;transition:none!important}
+  .product-image img,.partner-product-image img,.gummy-grid img{transform:none!important;transition:none!important}
+}
