@@ -415,6 +415,12 @@ html[data-theme=dark] .brand-section .brand-categories li{background:none;border
 .panel-contact-list strong{min-width:76px}
 .panel-contact-list a{text-decoration:underline;text-underline-offset:4px}
 .panel-contact-list a:hover{color:var(--blue)}
+/* Highlighted contact pill: a solid brand-blue chip so the address is easy to spot. */
+.panel-contact-pill{display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;background:#145cb5;color:#fff;font-weight:700;font-size:16px;letter-spacing:.2px;border-radius:999px;text-decoration:none;transition:background .18s,transform .18s}
+.panel-contact-pill:hover{background:#0b4a97;color:#fff;transform:translateY(-1px)}
+.panel-contact-pill:focus-visible{outline:3px solid #145cb5;outline-offset:3px}
+html[data-theme=dark] .panel-contact-pill{background:#145cb5;color:#fff}
+html[data-theme=dark] .panel-contact-pill:hover{background:#0b4a97;color:#fff}
 html[data-theme=dark] .footer a:hover{color:var(--ink)}
 @media(max-width:760px){
   .footer{flex-direction:column;align-items:flex-start;gap:8px}

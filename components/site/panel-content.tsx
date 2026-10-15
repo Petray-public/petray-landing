@@ -27,7 +27,10 @@ export function PanelContent({ panel }: { panel: PanelId }) {
         <li><strong>Operations</strong><span>Connect sourcing, fulfilment and customer experience.</span></li>
         <li><strong>Technology</strong><span>Build software that helps commerce brands support their customers.</span></li>
       </ul>
-      <p className="panel-footnote">Want to work at Petray? Connect with us at <a href="mailto:hr@petray.in">hr@petray.in</a>.</p>
+      <div className="panel-contact">
+        <p>Want to work at Petray? Connect with us:</p>
+        <a className="panel-contact-pill" href="mailto:hr@petray.in">hr@petray.in</a>
+      </div>
     </>
   );
   if (panel === "partners") return (
