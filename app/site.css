@@ -401,3 +401,22 @@ html[data-theme=dark] .brand-section .brand-categories li{background:none;border
   .theme-toggle-thumb,.theme-toggle svg{transition:none}
   ::view-transition-group(root),::view-transition-old(root),::view-transition-new(root){animation:none!important}
 }
+
+/* Company contact details: kept as plain text in the footer and inside panels. */
+.footer{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 32px}
+.footer-address{font-style:normal;line-height:1.6;flex:1 1 340px;min-width:0}
+.footer-contact{white-space:nowrap}
+.footer a{text-decoration:underline;text-underline-offset:3px}
+.footer a:hover{color:var(--ink)}
+.panel-contact{margin-top:26px}
+.panel-contact>p{margin:0 0 12px}
+.panel-contact-list{list-style:none;padding:0;margin:0}
+.panel-contact-list li{display:flex;flex-wrap:wrap;gap:4px 14px;border-top:1px solid var(--line);padding:14px 0;line-height:1.5;font-size:16px}
+.panel-contact-list strong{min-width:76px}
+.panel-contact-list a{text-decoration:underline;text-underline-offset:4px}
+.panel-contact-list a:hover{color:var(--blue)}
+html[data-theme=dark] .footer a:hover{color:var(--ink)}
+@media(max-width:760px){
+  .footer{flex-direction:column;align-items:flex-start;gap:8px}
+  .footer-address{flex:1 1 auto}
+}

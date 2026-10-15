@@ -27,7 +27,7 @@ export function PanelContent({ panel }: { panel: PanelId }) {
         <li><strong>Operations</strong><span>Connect sourcing, fulfilment and customer experience.</span></li>
         <li><strong>Technology</strong><span>Build software that helps commerce brands support their customers.</span></li>
       </ul>
-      <p className="panel-footnote">Current openings and an application route will be added to the complete company website.</p>
+      <p className="panel-footnote">Want to work at Petray? Connect with us at <a href="mailto:hr@petray.in">hr@petray.in</a>.</p>
     </>
   );
   if (panel === "partners") return (
@@ -40,7 +40,13 @@ export function PanelContent({ panel }: { panel: PanelId }) {
         <li><strong>Creators</strong><span>Find a brand and product that connects with your audience.</span></li>
         <li><strong>Brands</strong><span>Explore potential commerce and distribution opportunities in India.</span></li>
       </ul>
-      <p className="panel-footnote">Partnership contacts and enquiry forms will be added to the complete company website.</p>
+      <div className="panel-contact">
+        <p>For partnership and enquiries, contact us:</p>
+        <ul className="panel-contact-list">
+          <li><strong>Email</strong><a href="mailto:petraypvt@gmail.com">petraypvt@gmail.com</a></li>
+          <li><strong>Contact</strong><a href="tel:+919823552698">9823552698</a></li>
+        </ul>
+      </div>
     </>
   );
   return (
