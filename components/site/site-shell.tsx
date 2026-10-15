@@ -86,7 +86,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <PanelButton panel="partners">Work with us</PanelButton>
       </nav>
       {children}
-      <footer className="footer"><span>Petray Private Limited</span><span>Pune, India</span></footer>
+      <footer className="footer">
+        <span>Petray Private Limited</span>
+        <address className="footer-address">Office Address: RajShree Estates, Hinjawadi Phase 2, Hinjawadi, Man, Maharashtra 411057.</address>
+        <span className="footer-contact"><a href="mailto:petraypvt@gmail.com">petraypvt@gmail.com</a> · <a href="tel:+919823552698">9823552698</a></span>
+      </footer>
       <dialog id="detail" ref={dialogRef} aria-labelledby={activePanel ? "panel-title" : undefined} onClose={onDialogClose} onClick={event => {
         const rect = event.currentTarget.getBoundingClientRect();
         if (event.target === event.currentTarget && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) event.currentTarget.close();
